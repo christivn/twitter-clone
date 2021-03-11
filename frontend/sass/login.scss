@@ -1,0 +1,74 @@
+/*-----------------------[ RESPONSIVE ]-----------------------*/
+    
+@mixin phone {
+    @media (max-width: 599px) { @content; }
+  }
+  @mixin tablet-portrait {
+    @media (max-width: 600px) { @content; }
+  }
+  @mixin tablet {
+    @media (max-width: 800px) { @content; }
+  }
+  @mixin desktop {
+    @media (max-width: 1200px) { @content; }
+  }
+  @mixin big-desktop {
+    @media (max-width: 1800px) { @content; }
+  }
+
+
+/*-----------------------[ LAYOUT ]-----------------------*/
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        height: 100vh;
+        margin: 0;
+        font-family: Montserrat, System;
+
+        h2 {
+            font-size: 30px;
+            line-height : 30px;
+            margin-top: 2rem;
+        }
+
+        a {
+            color: rgb(27, 149, 224);
+            text-decoration: none;
+        }
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 400px;
+
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+
+        padding:20px;
+    }
+
+/*-----------------------[ IMAGENES ]-----------------------*/
+
+    .logo {
+        width: 40px;
+    }
+
+/*-----------------------[ CREDITO ]-----------------------*/
+.credito {
+    color: rgb(90, 90, 90);
+    position: absolute;
+    bottom: 0px;
+    padding-bottom: 20px;
+
+    a {
+        text-decoration: none;
+        color:rgb(24, 24, 24);
+    }
+
+    @include tablet {
+        display: none;
+    }
+}
