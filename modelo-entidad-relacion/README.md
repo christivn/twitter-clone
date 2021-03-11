@@ -1,1 +1,1 @@
-![modelo_entidad_relacion](https://raw.githubusercontent.com/christivn/twitter-clone/main/modelo-entidad-relacion/modelo-entidad-relaci%C3%B3n.png?token=ALQPMVBEMBXSQTZG5ALQCA3AJJJUG){:height="auto" width="100%"}
+![modelo_entidad_relacion](https://raw.githubusercontent.com/christivn/twitter-clone/main/modelo-entidad-relacion/modelo-entidad-relaci%C3%B3n.png?token=ALQPMVBEMBXSQTZG5ALQCA3AJJJUG)
