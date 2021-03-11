@@ -1,6 +1,8 @@
 <?php
 require_once './Model/connection.php';
+
 header("Content-type: application/json; charset=utf-8");
+session_start();
 
 function generateRandomString($length = 16) {
     $characters = '01GV9Jm2u7rmsCe65wKzPTw5jtS38n2tVEGiABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -38,7 +40,11 @@ class Twitter {
 
     // Función para chekear que la api_key sea válida
     public function checkApiKey($api_key) {
-        return false;
+        if(isset($_SESSION[$api_key])){
+            return true;
+        } else {
+            return false;
+        }
     }
     
 
@@ -70,6 +76,7 @@ class Twitter {
             while($row = $result->fetch_assoc()) {
                 $this->updateKEY($nick);
                 echo json_encode(Array("code"=>200, "id"=>$row["id"], "api_key"=> $row["api_key"],"msg"=>"Se ha completado la peticion correctamente"));
+                $_SESSION[$row["api_key"]]=true;
                 return true;
             }
         } else {
@@ -96,7 +103,7 @@ class Twitter {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
 
-            $sql = "INSERT INTO user_bio (bio, avatar_url) VALUES ('".$bio."', '')";
+            $sql = "INSERT INTO user_bio (bio, avatar_url) VALUES ('".$bio."', '/img/default.png')";
             if ($conexion->query($sql) != TRUE) {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
@@ -108,4 +115,21 @@ class Twitter {
         }
     }
 
+
+    // Función para devolver el perfil de un usuario
+    public function profile($id, $api_key) {
+        return false;
+    }
+
+
+    // Función para devolver el feed de un usuario
+    public function feed($id, $api_key) {
+        return false;
+    }
+
+    
+    // Función para escribir un tweet
+    public function tweet($id, $content, $img_src, $api_key) {
+        return false;
+    }
 }
