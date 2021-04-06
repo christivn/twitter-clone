@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Twitter - Perfil</title>
+    <link rel="icon" type="image/png" href="img/logo-icon.png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div>
+</div>
+
+<div class="container">
+        <a href="index.html"><img src="img/logo-icon.png" alt="logo" class="logo"></a>
+
+        <h2>Iniciar sesión en Twitter</h2>
+        <p id="error-msg"></p>
+
+        <form id="login">
+            <input type="text" name="usuario" id="usuario" placeholder="Usuario">
+            <br><br>
+            <input type="password" name="pass" id="pass" placeholder="Contraseña">
+        </form>
+
+        <a onclink="login()" class="boton-principal boton-desactivado">Iniciar sesión</a>
+        <br><center><a style="cursor:pointer;" id="btn-modal">Regístrate en Twitter</a></center>
+
+
+
+        <div id="Modal" class="modal">
+            <div class="modal-content">
+            <span class="close"></span>
+
+            <center><a href="index.html"><img src="img/logo-icon.png" alt="logo" class="logo"></a></center>
+            <br><span>Crea tu cuenta</span><br><br>
+
+            <form id="registro">
+                <input type="hidden" name="nameic" id="nameic">
+                <input type="text" name="usuario" id="usuario" placeholder="Usuario">
+                <br><br>
+                <textarea style="resize: none;" name="textarea" name="bio" id="bio" placeholder="Biografía" rows="5" cols="50"></textarea>
+                <br><br>
+                <input type="password" name="pass" id="pass" placeholder="Contraseña">
+                <br><br>
+                <input type="password" name="repass" id="repass" placeholder="Repite la contraseña">
+            </form>
+
+            <a onclink="register()" class="boton-principal boton-desactivado">Registrarme</a>
+        </div>
+  
+  </div>
+</div>
+
+</body>
+</html>
+

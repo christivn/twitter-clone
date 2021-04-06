@@ -6,10 +6,75 @@
 body {
   margin: 0;
   font-family: Montserrat, System;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /*-----------------------[ RESPONSIVE ]-----------------------*/
 /*-----------------------[ COLORES ]-----------------------*/
+/*-----------------------[ NAVBAR ]-----------------------*/
+nav .logo {
+  width: 40px;
+  height: auto;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+nav ul {
+  padding: 0;
+}
+
+nav ul svg {
+  width: 30px;
+  margin-bottom: -8px;
+}
+
+nav ul li {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+nav ul li span {
+  margin-left: 7px;
+}
+
+nav ul li a {
+  color: black !important;
+}
+
+nav ul li:hover {
+  color: #22A1F2;
+  border-radius: 50px;
+  background-color: #E5F5FF;
+  cursor: pointer;
+}
+
+nav ul li:hover a {
+  color: #22A1F2 !important;
+}
+
+nav ul li:hover svg {
+  fill: #22A1F2;
+}
+
+nav li#activo a {
+  color: #22A1F2 !important;
+  fill: #22A1F2 !important;
+}
+
+nav .boton-principal {
+  margin-top: 0;
+  margin-left: 20px;
+}
+
 /*-----------------------[ BOTONES ]-----------------------*/
 a.boton-principal {
   background-color: #1da1f2;

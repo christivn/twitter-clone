@@ -5,6 +5,12 @@
 body {
     margin: 0;
     font-family: Montserrat, System;
+
+    // Para desabilitar la seleccion de texto de la web
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; 
 }
 
 /*-----------------------[ RESPONSIVE ]-----------------------*/
@@ -34,6 +40,72 @@ $principalTransparente: rgba(29, 161, 242, 0.1);
 $blanco: rgb(255, 255, 255);
 $gris: rgb(196, 207, 214);
 
+/*-----------------------[ NAVBAR ]-----------------------*/
+nav {
+  .logo {
+    width: 40px;
+    height: auto;
+    margin-top: 20px;
+    margin-left: 20px;
+  }
+
+  ul {
+    padding: 0;
+
+    svg {
+      width: 30px;
+      margin-bottom: -8px;
+    }
+
+    li {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+
+      padding-left: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+
+      font-size: 18px;
+      font-weight: 600;
+
+      span {
+        margin-left: 7px;
+      }
+
+      a {
+        color: black!important;
+      }
+    }
+
+    li:hover {
+      color: #22A1F2;
+      border-radius: 50px;
+      background-color: #E5F5FF;
+      cursor: pointer;
+
+      a {
+        color: #22A1F2!important;
+      }
+
+      svg {
+        fill: #22A1F2;
+      }
+    }
+  }
+
+  li#activo {
+    a {
+      color: #22A1F2!important;
+      fill: #22A1F2!important;
+    }
+  }
+
+  .boton-principal {
+    margin-top:0;
+    margin-left: 20px;
+  }
+}
 
 /*-----------------------[ BOTONES ]-----------------------*/
     a.boton-principal {

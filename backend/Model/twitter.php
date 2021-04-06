@@ -103,7 +103,7 @@ class Twitter {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
 
-            $sql = "INSERT INTO user_bio (bio, avatar_url) VALUES ('".$bio."', '/img/default.png')";
+            $sql = "INSERT INTO user_bio (bio, avatar_url) VALUES ('".$bio."', 'https://i.imgur.com/CLJHPra.png')";
             if ($conexion->query($sql) != TRUE) {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
@@ -116,7 +116,7 @@ class Twitter {
     }
 
 
-    // Función para devolver el perfil de un usuario
+    // Función para devolver el perfil de un usuario (Devolver si se sigue a ese usuario)
     public function profile($id, $api_key) {
         return false;
     }
@@ -132,4 +132,12 @@ class Twitter {
     public function tweet($id, $content, $img_src, $api_key) {
         return false;
     }
+
+
+    // Función para crear una notificicacion
+    public function notification($id, $api_key, $type) {
+        // type= follower, mention, fav, retweet, reply
+        return false;
+    }
+
 }

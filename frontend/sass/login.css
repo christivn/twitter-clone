@@ -1,0 +1,57 @@
+/*-----------------------[ RESPONSIVE ]-----------------------*/
+/*-----------------------[ LAYOUT ]-----------------------*/
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: Montserrat, System;
+}
+
+body h2 {
+  font-size: 30px;
+  line-height: 30px;
+  margin-top: 2rem;
+}
+
+body a {
+  color: #1b95e0;
+  text-decoration: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
+
+/*-----------------------[ IMAGENES ]-----------------------*/
+.logo {
+  width: 40px;
+}
+
+/*-----------------------[ CREDITO ]-----------------------*/
+.credito {
+  color: #5a5a5a;
+  position: absolute;
+  bottom: 0px;
+  padding-bottom: 20px;
+}
+
+.credito a {
+  text-decoration: none;
+  color: #181818;
+}
+
+@media (max-width: 800px) {
+  .credito {
+    display: none;
+  }
+}
+/*# sourceMappingURL=login.css.map */
