@@ -28,21 +28,59 @@ body a {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  width: 75%;
+  width: 85%;
   height: 100vh;
   margin: auto;
 }
 
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 980px) {
+  .container div.part-3 {
+    display: none;
+  }
+}
+
+@media (max-width: 670px) {
+  .container div.part-1 {
+    display: none;
+  }
+}
+
 .container div.part-1 {
-  -webkit-box-flex: 12%;
-      -ms-flex: 12%;
-          flex: 12%;
-  padding: 20px;
+  -webkit-box-flex: 15%;
+      -ms-flex: 15%;
+          flex: 15%;
+}
+
+@media (max-width: 1200px) {
+  .container div.part-1 {
+    -webkit-box-flex: 20%;
+        -ms-flex: 20%;
+            flex: 20%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container div.part-1 {
+    -webkit-box-flex: 12%;
+        -ms-flex: 12%;
+            flex: 12%;
+  }
 }
 
 .container div.part-1 nav {
   position: fixed;
   top: 0;
+}
+
+.container div.part-1 nav span {
+  font-size: 0.9em;
+  padding-right: 20px;
 }
 
 .container div.part-1 nav footer {
@@ -209,11 +247,24 @@ body a {
   color: #E55380;
 }
 
+.container div.part-2 .tweet:hover {
+  background-color: #F7F7F7;
+  cursor: pointer;
+}
+
 .container div.part-3 {
   -webkit-box-flex: 18%;
       -ms-flex: 18%;
           flex: 18%;
   padding: 20px;
+}
+
+@media (max-width: 1200px) {
+  .container div.part-3 {
+    -webkit-box-flex: 30%;
+        -ms-flex: 30%;
+            flex: 30%;
+  }
 }
 
 .container div.part-3 .sticky {
@@ -305,5 +356,37 @@ body a {
 .container div.part-3 article .contenido:hover:last-child {
   background-color: #ebecec;
   border-radius: 0px 0px 16px 16px;
+}
+
+.modal header {
+  border-bottom: 1px solid #ebeef0;
+}
+
+.modal header h3 {
+  margin-left: 10px;
+}
+
+.modal .twittear {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+}
+
+.modal .twittear div.foto-perfil img {
+  width: 60px;
+  border-radius: 50px;
+}
+
+.modal .twittear div.div-tweet {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.modal .twittear div.div-tweet input {
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
 }
 /*# sourceMappingURL=feed.css.map */

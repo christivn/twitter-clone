@@ -4,16 +4,16 @@
     @media (max-width: 599px) { @content; }
   }
   @mixin tablet-portrait {
-    @media (max-width: 600px) { @content; }
+    @media (max-width: 670px) { @content; }
   }
   @mixin tablet {
-    @media (max-width: 800px) { @content; }
+    @media (max-width: 980px) { @content; }
   }
   @mixin desktop {
     @media (max-width: 1200px) { @content; }
   }
   @mixin big-desktop {
-    @media (max-width: 1800px) { @content; }
+    @media (min-width: 1400px) { @content; }
   }
 
 
@@ -43,21 +43,47 @@
         display: flex;
         flex-wrap: wrap;
 
-        width: 75%;
+        width: 85%;
         height: 100vh;
         margin: auto;
 
+        @include desktop {
+            width: 100%;
+        }
+
+        @include tablet {
+            div.part-3 {
+                display: none;
+            }
+        }
+
+        @include tablet-portrait {
+            div.part-1 {
+                display: none;
+            }
+        }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Parte [1]
 
         div.part-1 {
-            flex: 12%;
-            padding:20px;
+            flex: 15%;
+            @include desktop {
+                flex: 20%;
+            }
+
+            @include big-desktop {
+                flex: 12%;
+            }
 
             nav {
                 position: fixed;
                 top: 0;
+
+                span {
+                    font-size: 0.9em;
+                    padding-right: 20px;
+                }
 
                 footer {
                     display: flex;
@@ -228,6 +254,11 @@
                     }
                 }
             }
+
+            .tweet:hover {
+                background-color: #F7F7F7;
+                cursor: pointer;
+            }
         }
 
 
@@ -238,6 +269,10 @@
         div.part-3 {
             flex: 18%;
             padding:20px;
+
+            @include desktop {
+                flex: 30%;
+            }
 
             .sticky {
                 position: fixed;
@@ -331,7 +366,44 @@
     }
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Modal "Twitear"
 
+    .modal {
+
+        header {
+            border-bottom: 1px solid rgb(235, 238, 240);
+
+            h3 {
+                margin-left: 10px;
+            }
+        }
+
+        .twittear {
+            display: flex;
+            padding: 20px;
+
+            div.foto-perfil {
+                img {
+                    width: 60px;
+                    border-radius: 50px;
+                }
+            }
+
+            div.div-tweet {
+                width: 100%;
+                padding-left: 10px;
+
+                input {
+                    width: 100%;
+                    border: 0;
+                    box-shadow: 0 0 0pt 0px #1da1f2;
+                }
+
+            }
+
+        }
+    }
 
 
 

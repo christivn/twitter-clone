@@ -10,6 +10,8 @@
 
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/index.css">
+
+    <script src="js/checkCookielogin.js"></script>
 </head>
 <body>
 
@@ -46,17 +48,20 @@
     <br><span>Crea tu cuenta</span><br><br>
 
     <form id="registro">
+        <div id="error" style="color:red;padding-bottom:30px;font-weight: 600;"></div>
+
         <input type="hidden" name="nameic" id="nameic">
-        <input type="text" name="usuario" id="usuario" placeholder="Usuario">
+
+        <input type="text" name="usuario" id="usuario" placeholder="Usuario" minlength="3">
         <br><br>
-        <textarea style="resize: none;" name="textarea" name="bio" id="bio" placeholder="Biografía" rows="5" cols="50"></textarea>
+        <textarea style="resize: none;" name="textarea" name="bio" id="bio" placeholder="Biografía" rows="5" cols="50" maxlength="150"></textarea>
         <br><br>
-        <input type="password" name="pass" id="pass" placeholder="Contraseña">
+        <input type="password" name="pass" id="pass" placeholder="Contraseña" maxlength="9" minlength="3">
         <br><br>
-        <input type="password" name="repass" id="repass" placeholder="Repite la contraseña">
+        <input type="password" name="repass" id="repass" placeholder="Repite la contraseña" maxlength="9" minlength="3">
     </form>
 
-    <a onclink="register()" class="boton-principal boton-desactivado">Registrarme</a>
+    <a onclick="register()" class="boton-principal" style="cursor:pointer;">Registrarme</a>
 </div>
     
 </body>
@@ -79,5 +84,7 @@
       }
     }
 </script>
+
+<script src="js/register.js"></script>
 </html>
 
