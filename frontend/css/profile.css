@@ -376,4 +376,36 @@ body a {
   background-color: #ebecec;
   border-radius: 0px 0px 16px 16px;
 }
+
+.modal header {
+  border-bottom: 1px solid #ebeef0;
+}
+
+.modal header h3 {
+  margin-left: 10px;
+}
+
+.modal .twittear {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+}
+
+.modal .twittear div.foto-perfil img {
+  width: 60px;
+  border-radius: 50px;
+}
+
+.modal .twittear div.div-tweet {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.modal .twittear div.div-tweet input {
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
+}
 /*# sourceMappingURL=profile.css.map */
