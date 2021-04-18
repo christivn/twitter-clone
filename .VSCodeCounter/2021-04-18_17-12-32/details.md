@@ -1,16 +1,17 @@
 # Details
 
-Date : 2021-04-18 17:08:47
+Date : 2021-04-18 17:12:32
 
 Directory c:\Users\chris\Documents\GitHub\twitter-clone
 
-Total : 66 files,  5003 codes, 115 comments, 1259 blanks, all 6377 lines
+Total : 65 files,  5119 codes, 202 comments, 1305 blanks, all 6626 lines
 
 [summary](results.md)
 
 ## Files
 | filename | language | code | comment | blank | total |
 | :--- | :--- | ---: | ---: | ---: | ---: |
+| [DB/twitter.sql](/DB/twitter.sql) | SQL | 128 | 88 | 48 | 264 |
 | [README.md](/README.md) | Markdown | 1 | 0 | 0 | 1 |
 | [backend/Model/connection.php](/backend/Model/connection.php) | PHP | 15 | 0 | 1 | 16 |
 | [backend/Model/twitter.php](/backend/Model/twitter.php) | PHP | 598 | 25 | 144 | 767 |
@@ -75,7 +76,5 @@ Total : 66 files,  5003 codes, 115 comments, 1259 blanks, all 6377 lines
 | [frontend/profile.html](/frontend/profile.html) | HTML | 172 | 4 | 55 | 231 |
 | [frontend/settings.html](/frontend/settings.html) | HTML | 182 | 3 | 51 | 236 |
 | [frontend/tweet.html](/frontend/tweet.html) | HTML | 175 | 3 | 51 | 229 |
-| [modelo-entidad-relacion/README.md](/modelo-entidad-relacion/README.md) | Markdown | 1 | 0 | 1 | 2 |
-| [modelo-entidad-relacion/modelo-entidad-relación.html](/modelo-entidad-relacion/modelo-entidad-relación.html) | HTML | 11 | 1 | 1 | 13 |
 
 [summary](results.md)
