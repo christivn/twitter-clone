@@ -129,9 +129,9 @@ class Twitter {
             if ($conexion->query($sql) != TRUE) {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
-
             $conexion->close();
-            echo json_encode(Array("code"=>200, "msg"=>"Se ha completado la peticion correctamente"));
+
+            $this->login($nick, $pass);
         } else {
             echo json_encode(Array("code"=>400, "msg"=>"El usuario ya existe"));
         }

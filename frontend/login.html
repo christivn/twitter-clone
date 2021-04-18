@@ -31,59 +31,14 @@
         </form>
 
         <a onclick="login()" class="boton-principal" style="cursor:pointer;">Iniciar sesión</a>
-        <br><center><a style="cursor:pointer;" id="btn-modal">Regístrate en Twitter</a></center>
-
-
-
-        <div id="Modal" class="modal">
-            <div class="modal-content">
-            <span class="close"></span>
-
-            <center><a href="index.html"><img src="img/logo-icon.png" alt="logo" class="logo"></a></center>
-            <br><span>Crea tu cuenta</span><br><br>
-
-            <form id="registro">
-              <div id="error" style="color:red;font-weight: 600;"></div>
-
-                <input type="hidden" name="nameic" id="nameic">
-                <input type="text" name="usuario" id="usuario" placeholder="Usuario">
-                <br><br>
-                <textarea style="resize: none;" name="textarea" name="bio" id="bio" placeholder="Biografía" rows="5" cols="50"></textarea>
-                <br><br>
-                <input type="password" name="pass" id="pass" placeholder="Contraseña">
-                <br><br>
-                <input type="password" name="repass" id="repass" placeholder="Repite la contraseña">
-            </form>
-
-            <a onclick="register()" class="boton-principal" style="cursor:pointer;">Registrarme</a>
-        </div>
+        <br><center><a style="cursor:pointer;" id="btn-modal" href="index.html">Regístrate en Twitter</a></center>
   
   </div>
 </div>
 
 </body>
 
-<script>
-    var modal = document.getElementById("Modal");
-    var btn = document.getElementById("btn-modal");
-    var span = document.getElementsByClassName("close")[0];
-    
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-    
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-</script>
 
 <script src="js/login.js"></script>
-
 </html>
 

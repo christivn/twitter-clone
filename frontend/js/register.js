@@ -78,6 +78,7 @@ function callBackPeticionLogin() {
         let data=JSON.parse(conexion.responseText);
 
         if(data.code=="200"){
+            setCookie("id",data.id,9999);
             setCookie("api_key",data.api_key,9999);
             window.location.href = "feed.html";
         }

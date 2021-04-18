@@ -170,8 +170,13 @@ function callBack() {
                                 }
                             }
                         } else {
-                            let spinner=document.getElementById("spinner").style.display="none";
-                            document.getElementById("lista-tweets").innerHTML="<center style='margin-top:20px;'>Este usuario no ha publicado ningún tweet</center>";
+                            document.getElementById("ver-mas").style.visibility="hidden";
+                            document.getElementById("spinner").style.display="none";
+
+                            let lista = document.getElementById("lista-tweets");
+                            if(lista.innerHTML==""){
+                                lista.innerHTML="<center style='margin-top:20px;'>Este usuario no ha publicado ningún tweet</center>";
+                            }
                         }
 
 

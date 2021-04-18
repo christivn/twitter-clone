@@ -1,5 +1,6 @@
 
 function login() {
+    console.log("TEST 1");
     let errores = false;
     let error = document.getElementById("error-login");
     error.textContent = "";
@@ -24,16 +25,17 @@ function login() {
 
 
 function peticionLogin(nick,pass){
-    conexion=new XMLHttpRequest();
-    conexion.addEventListener('readystatechange',callBackPeticion);
-    conexion.open('GET',"http://127.0.0.1/backend/login.php?nick="+nick+"&pass="+pass);
-    conexion.send();
+    console.log("TEST 1");
+    conexion_login=new XMLHttpRequest();
+    conexion_login.addEventListener('readystatechange',callBackPeticionLogin);
+    conexion_login.open('GET',"http://127.0.0.1/backend/login.php?nick="+nick+"&pass="+pass);
+    conexion_login.send();
 }
 
-function callBackPeticion() {
-    if(conexion.readyState == 4 && conexion.status == 200) {
-        let data=JSON.parse(conexion.responseText);
-        console.log(data);
+function callBackPeticionLogin() {
+    if(conexion_login.readyState == 4 && conexion_login.status == 200) {
+        let data=JSON.parse(conexion_login.responseText);
+        console.log(conexion_login.responseText);
 
         if(data.code=="200"){
             setCookie("id",data.id,9999);
