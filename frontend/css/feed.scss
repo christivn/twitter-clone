@@ -391,7 +391,7 @@
 
                         img {
                             width: 50px;
-                            border-radius: 50px;
+                            border-radius: 100%;
                         }
 
                         h4 {
@@ -461,6 +461,24 @@
                     box-shadow: 0 0 0pt 0px #1da1f2;
                 }
 
+                #boton-imagen {
+                    width: 47px;
+                    margin-top:20px;
+                    fill:#22A1F2;
+                    padding:7px;
+                    cursor:pointer;
+                }
+
+                #boton-imagen:hover {
+                    background-color: #DFEEF8;
+                    border-radius: 100%;
+                }
+
+                a {
+                    margin-left: 1%;
+                    width: 91%;
+                    float: right;
+                }
             }
 
         }

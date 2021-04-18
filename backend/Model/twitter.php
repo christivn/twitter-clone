@@ -682,14 +682,6 @@ class Twitter {
     }
 
 
-    // Función para devolver el feed de los tweets de un perfil
-    public function followsFeed($api_key, $page) {
-        if($this->checkApiKey($api_key)) {
-            
-        }
-    }    
-
-
     // Función que devuelve los ajuestes de la cuenta del usuario
     public function settingsLoad($api_key) {
         if($this->checkApiKey($api_key)) {
@@ -802,11 +794,86 @@ class Twitter {
 
 
     // Función para hacer un comentario en un tweet
-    public function comment($api_key, $tweet_id, $content) {
+    public function search($api_key, $name_twitter) {
         if($this->checkApiKey($api_key)) {
+            $conexion = DB::connectDB();
+            $sql = "SELECT id FROM user WHERE nick='".$name_twitter."'";
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $arr[]=Array(
+                        "id"=>$row["id"]
+                    );
+                }
+                echo json_encode($arr);
+            }
         }
     }
-    
+
+
+    // Función para hacer un comentario en un tweet
+    public function comment($api_key, $tweet_id, $content) {
+        if($this->checkApiKey($api_key)) {
+            $id = $_COOKIE["id"];
+            $date = date('Y-m-d H:i:s');
+
+            $conexion = DB::connectDB();
+            $sql = "INSERT INTO comments (tweet_id,user_id,content,date) VALUES ('".$tweet_id."',".$id.",'".$content."','".$date."')";
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
+        }
+    }
+
+
+    // Función que devuelve los comentarios de un tweet
+    public function tweetComments($api_key, $tweet_id, $page) {
+        if($this->checkApiKey($api_key)) {
+            $pagina_inicial = ($page-1)*10;
+            $pagina_final = $page+10;
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT comments.user_id as user_id,comments.content as content,comments.date as date,user.nick as nick,user.name_twitter as name_twitter FROM comments INNER JOIN user ON comments.user_id=user.id WHERE comments.tweet_id='".$tweet_id."' ORDER BY date desc LIMIT {$pagina_inicial},{$pagina_final}";
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $arr[]=Array(
+                        "user_id"=>$row["user_id"],
+                        "name_twitter"=>$row["name_twitter"],
+                        "nick"=>$row["nick"],
+                        "content"=>$row["content"],
+                        "date"=>$row["date"]
+                    );
+                }
+                echo json_encode($arr);
+            }
+        }
+    }
+
+
+    // Función para devolver el feed de los tweets de un perfil
+    public function followsFeed($api_key, $page) {
+        if($this->checkApiKey($api_key)) {
+            
+        }
+    }
+
+
+    // Función que devuelve las notificaciones de un usuario
+    public function notificationFeed($api_key, $page) {
+        // type= follower, fav, retweet, comentario
+        if($this->checkApiKey($api_key)) {
+            
+        }
+    }
+
 
     // Función para crear una notificicacion
     public function notification($id, $api_key, $type) {

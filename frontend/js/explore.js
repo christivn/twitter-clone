@@ -13,7 +13,10 @@ function cargarTweets(page){
                 let data=JSON.parse(conexion.responseText);
 
                 let spinner=document.getElementById("spinner").style.display="none";
-                let ver_mas=document.getElementById("ver-mas").style.visibility="visible";
+
+                if(page!=1){
+                    let ver_mas=document.getElementById("ver-mas").style.visibility="visible";
+                }
 
                 let lista=document.getElementById("lista-tweets");
 

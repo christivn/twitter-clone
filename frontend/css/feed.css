@@ -381,7 +381,7 @@ body a {
 
 .container div.part-3 article .contenido div img {
   width: 50px;
-  border-radius: 50px;
+  border-radius: 100%;
 }
 
 .container div.part-3 article .contenido div h4 {
@@ -441,5 +441,24 @@ body a {
   border: 0;
   -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
           box-shadow: 0 0 0pt 0px #1da1f2;
+}
+
+.modal .twittear div.div-tweet #boton-imagen {
+  width: 47px;
+  margin-top: 20px;
+  fill: #22A1F2;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.modal .twittear div.div-tweet #boton-imagen:hover {
+  background-color: #DFEEF8;
+  border-radius: 100%;
+}
+
+.modal .twittear div.div-tweet a {
+  margin-left: 1%;
+  width: 91%;
+  float: right;
 }
 /*# sourceMappingURL=feed.css.map */

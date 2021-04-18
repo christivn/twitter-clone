@@ -13,7 +13,11 @@ function cargarSeguidores(page){
                 let data=JSON.parse(conexionSeguidores.responseText);
 
                 let spinner=document.getElementById("spinner").style.display="none";
-                let ver_mas=document.getElementById("ver-mas").style.visibility="visible";
+                
+                if(page!=1){
+                    let ver_mas=document.getElementById("ver-mas").style.visibility="visible";
+                }
+
                 let lista = document.getElementById("lista-seguidores");
 
                 for(let i=0;i<data.length;i++){
