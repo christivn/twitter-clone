@@ -875,11 +875,10 @@ class Twitter {
     }
 
 
-    // Función para crear una notificicacion
-    public function notification($id, $api_key, $type) {
-        // type= follower, mention, fav, retweet, reply
+    // Función para eliminar uno de tus tweets
+    public function deleteTweet($api_key, $tweet_id) {
         if($this->checkApiKey($api_key)) {
-            
+            $id = $_COOKIE["id"];
         }
     }
 

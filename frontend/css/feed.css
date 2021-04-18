@@ -127,6 +127,49 @@ body a {
   top: 20px;
 }
 
+.container div.part-2 .twittear {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+}
+
+.container div.part-2 .twittear div.foto-perfil img {
+  width: 60px;
+  border-radius: 50px;
+}
+
+.container div.part-2 .twittear div.div-tweet {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.container div.part-2 .twittear div.div-tweet input {
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
+}
+
+.container div.part-2 .twittear div.div-tweet #boton-imagen {
+  width: 47px;
+  margin-top: 20px;
+  fill: #22A1F2;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.container div.part-2 .twittear div.div-tweet #boton-imagen:hover {
+  background-color: #DFEEF8;
+  border-radius: 100%;
+}
+
+.container div.part-2 .twittear div.div-tweet a {
+  margin-left: 1%;
+  width: 91%;
+  float: right;
+}
+
 .container div.part-2 header {
   border-bottom: 1px solid #ebeef0;
 }
