@@ -749,6 +749,58 @@ class Twitter {
     }
 
 
+    // Función que devuelve los followers de un usuario
+    public function followers($api_key, $user_id, $page) {
+        if($this->checkApiKey($api_key)) {
+            $pagina_inicial = ($page-1)*20;
+            $pagina_final = $page+20;
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT user.id,user.nick,user.name_twitter FROM user INNER JOIN follows ON user.id=follows.following_user_id WHERE follows.followed_user_id=".$user_id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $arr[]=Array(
+                        "id"=>$row["id"],
+                        "nick"=> $row["nick"], 
+                        "name_twitter"=>$row["name_twitter"]
+                    );
+                }
+                echo json_encode($arr);
+            }
+        }
+    }
+
+
+        // Función que devuelve los perfiles seguidos de un usuario
+        public function followings($api_key, $user_id, $page) {
+            if($this->checkApiKey($api_key)) {
+                $pagina_inicial = ($page-1)*20;
+                $pagina_final = $page+20;
+    
+                $conexion = DB::connectDB();
+                $sql = "SELECT user.id,user.nick,user.name_twitter FROM user INNER JOIN follows ON user.id=follows.followed_user_id WHERE follows.following_user_id=".$user_id." LIMIT {$pagina_inicial},{$pagina_final}";
+                $result = $conexion->query($sql);
+                $conexion->close();
+    
+                if ($result->num_rows>0) {
+                    $arr = Array();
+                    while($row = $result->fetch_assoc()) {
+                        $arr[]=Array(
+                            "id"=>$row["id"],
+                            "nick"=> $row["nick"], 
+                            "name_twitter"=>$row["name_twitter"]
+                        );
+                    }
+                    echo json_encode($arr);
+                }
+            }
+        }
+
+
     // Función para hacer un comentario en un tweet
     public function comment($api_key, $tweet_id, $content) {
         if($this->checkApiKey($api_key)) {

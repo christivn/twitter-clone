@@ -66,7 +66,23 @@
             <p id="bio">Cargando...</p>
 
             <div class="stats">
-                <p><b id="followers">0</b> <span>Seguidores</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="following">0</b> <span>Siguiendo</span></p>
+                <p><b id="followers">0</b> <span id="seguidores" style="cursor:pointer">Seguidores</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b id="following">0</b> <span id="seguidos" style="cursor:pointer">Siguiendo</span></p>
+                <script>
+                    let follow_id = "";
+                    if(findGetParameter("id")==null){
+                        follow_id = getCookie("id");
+                    } else {
+                        follow_id = findGetParameter("id");
+                    }
+
+                    document.getElementById("seguidores").addEventListener("click", function(){ 
+                        window.location.href = "followers.html?id="+follow_id; 
+                    }, false);
+                    
+                    document.getElementById("seguidos").addEventListener("click", function(){ 
+                        window.location.href = "following.html?id="+follow_id; 
+                    }, false);
+                </script>
             </div>
         </div>
 

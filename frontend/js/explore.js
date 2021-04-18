@@ -90,7 +90,7 @@ function cargarTweets(page){
 
                         <div class="contenido-tweet">
                             <span  onclick="window.location.href = 'profile.html?id=`+data[i].user_id+`';"><b>`+data[i].name_twitter+`</b> @`+data[i].nick+` ·  `+fecha_tweet+`</span>
-                            <p>`+data[i].content+`</p>
+                            <p style="margin-top:6px;">`+data[i].content+`</p>
 
                             `+img+`
 

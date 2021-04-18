@@ -140,7 +140,7 @@ function callBack() {
 
                                     <div class="contenido-tweet">
                                         <span><b>`+name_twitter+`</b> `+nick+` ·  `+fecha_tweet+`</span>
-                                        <p>`+data[i].content+`</p>
+                                        <p style="margin-top:6px;">`+data[i].content+`</p>
 
                                         `+img+`
 
