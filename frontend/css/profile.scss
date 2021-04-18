@@ -130,6 +130,7 @@
           flex: 50%;
           border-left: 1px solid rgb(235, 238, 240);
           border-right: 1px solid rgb(235, 238, 240);
+          padding-bottom: 20px;
 
           .sticky {
               position: fixed;
@@ -158,7 +159,38 @@
             border-bottom: 1px solid rgb(235, 238, 240);
 
             #foto-perfil {
-                border-radius: 250px;
+                width: 200px;
+                height: 200px;
+                border-radius: 100%;
+            }
+
+            @include tablet {
+                #foto-perfil {
+                    width: 35%;
+                    height: 35%;
+                    border-radius: 100%;
+                }
+            }
+        
+            @include tablet-portrait {
+                #foto-perfil {
+                    width: 35%;
+                    height: 35%;
+                    border-radius: 100%;
+                }
+
+                #boton {
+                    width: 30vw!important;
+                    margin-right: 20px;
+                }
+            }
+
+            @include desktop() {
+                #foto-perfil {
+                    width: 35%;
+                    height: 35%;
+                    border-radius: 100%;
+                }
             }
 
             .logo {

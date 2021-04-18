@@ -141,6 +141,28 @@
 
                 h3 {
                     margin-left: 10px;
+
+                    span {
+                        vertical-align: super;
+                    }
+                }
+
+                #atras {
+                    cursor: pointer;
+                    border-radius: 50%;
+                    padding: 8px;
+
+                    width: 50px;
+                    height: 50px;
+                    display: inline-block;
+
+                    svg {
+                        fill:#22A1F2;
+                    }
+                }
+
+                #atras:hover{
+                    background-color:#E8F5FF;
                 }
             }
 
@@ -208,6 +230,45 @@
                                 margin-left: 2px;
                                 margin-top: 7px;
                             }
+                        }
+                    }
+
+                    .fav_true {
+                        span {
+                            color: #e0245e!important;
+                        }
+                    }
+
+                    .rt_true {
+                        span {
+                            color:#17BF63!important;
+                        }
+                    }
+
+                    #comentarios {
+                        svg {
+                            fill:#5B7083;
+                        }
+                        span {
+                            color:#5B7083;
+                        }
+                    }
+
+                    #rt {
+                        svg {
+                            fill:#5B7083;
+                        }
+                        span {
+                            color:#5B7083;
+                        }
+                    }
+
+                    #fav {
+                        svg {
+                            fill:#5B7083;
+                        }
+                        span {
+                            color:#5B7083;
                         }
                     }
 

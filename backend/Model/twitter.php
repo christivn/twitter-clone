@@ -28,15 +28,13 @@ class Twitter {
     
 
     // Función para descargar una imagen al servidor desde una URL
-    public function downloadURL($api_key, $url) {
-        if($this->checkApiKey($api_key)){
-            $file_name = basename($url);
-            if(file_put_contents( "/backend/img/".$_COOKIE["id"],file_get_contents($url))) {
-                echo "Imagen subida correctamente";
-            }
-            else {
-                echo "Error en la subida de la imagen";
-            }
+    public function downloadURL($url, $type) {
+        $file_name = basename($url);
+        if(file_put_contents( "img/".$_COOKIE["id"]."_".$type.".jpg",file_get_contents($url))) {
+            echo "Imagen subida correctamente";
+        }
+        else {
+            echo "Error en la subida de la imagen";
         }
     }
 
@@ -277,34 +275,493 @@ class Twitter {
 
 
     // Función para escribir un tweet
-    public function tweet($id, $content, $img_src, $api_key) {
-        return false;
+    public function tweet($content, $api_key, $img_url) {
+        if(!isset($img_url)){
+            $img_url="";
+        }
+
+        if($this->checkApiKey($api_key)) {
+            $id = $_COOKIE["id"];
+            $date = date('Y-m-d H:i:s');
+            $tweet_id = generateRandomString();
+
+            $conexion = DB::connectDB();
+            $sql = "INSERT INTO tweets (user_id,tweet_id,date,content,img_url) VALUES (".$id.",'".$tweet_id."','".$date."','".$content."','".$img_url."')";
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
+        }
+    }
+
+
+    // Función para dar fav a un tweet
+    public function fav($api_key, $tweet_id) {
+        if($this->checkApiKey($api_key)){
+            $id = $_COOKIE["id"];
+            $date = date('Y-m-d H:i:s');
+
+            $conexion = DB::connectDB();
+            $sql = "INSERT INTO favs (tweet_id,user_fav_id,date) VALUES ('".$tweet_id."',".$id.",'".$date."')";
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
+        }
+    }
+
+
+    // Función para dar rt a un tweet
+    public function rt($api_key, $tweet_id) {
+        if($this->checkApiKey($api_key)){
+            $id = $_COOKIE["id"];
+            $date = date('Y-m-d H:i:s');
+
+            $conexion = DB::connectDB();
+            $sql = "INSERT INTO rt (tweet_id,user_rt_id,date) VALUES ('".$tweet_id."',".$id.",'".$date."')";
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
+        }
+    }
+
+
+    // Función para quitar fav a un tweet
+    public function fav_remove($api_key, $tweet_id) {
+        if($this->checkApiKey($api_key)){
+            $id = $_COOKIE["id"];
+
+            $conexion = DB::connectDB();
+            $sql = "DELETE FROM favs WHERE tweet_id='".$tweet_id."' and user_fav_id=".$id;
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
+        }
+    }
+
+
+    // Función para quitar rt a un tweet
+    public function rt_remove($api_key, $tweet_id) {
+        if($this->checkApiKey($api_key)){
+            $id = $_COOKIE["id"];
+
+            $conexion = DB::connectDB();
+            $sql = "DELETE FROM rt WHERE tweet_id='".$tweet_id."' and user_rt_id=".$id;
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
+        }
     }
 
 
     // Función para devolver el feed de un usuario (Tweets, y si le ha dado a RT o FAV, y numero de comentarios)
-    public function feed($id, $api_key) {
-        return false;
+    public function feedExplore($api_key, $page) {
+        if($this->checkApiKey($api_key)) {
+            $pagina_inicial = ($page-1)*20;
+            $pagina_final = $page+20;
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT user_id,tweet_id,date,content,img_url FROM tweets ORDER BY date desc LIMIT {$pagina_inicial},{$pagina_final}";
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $user_id=$row["user_id"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"]; 
+                    $content=$row["content"];
+                    $img_url=$row["img_url"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT user.nick as nick,user.name_twitter as name_twitter,user_bio.avatar_url as avatar_url FROM user INNER JOIN user_bio ON user.id=user_bio.user_id WHERE user.id=".$user_id;
+                    $result2 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $nick="";
+                    $name_twitter="";
+                    $avatar_url="";
+                    if ($result2->num_rows>0) {
+                        while($row = $result2->fetch_assoc()) {
+                            $nick=$row["nick"];
+                            $name_twitter=$row["name_twitter"];
+                            $avatar_url=$row["avatar_url"]; 
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as fav FROM favs WHERE tweet_id='".$tweet_id."'";
+                    $result3 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $fav=0;
+                    if ($result3->num_rows>0) {
+                        while($row = $result3->fetch_assoc()) {
+                            $fav=intval($row["fav"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as rt FROM rt WHERE tweet_id='".$tweet_id."'";
+                    $result03 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $rt=0;
+                    if ($result03->num_rows>0) {
+                        while($row = $result03->fetch_assoc()) {
+                            $rt=intval($row["rt"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as comments FROM comments WHERE tweet_id='".$tweet_id."'";
+                    $result4 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $comments=0;
+                    if ($result4->num_rows>0) {
+                        while($row = $result4->fetch_assoc()) {
+                            $comments=intval($row["comments"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM favs WHERE tweet_id='".$tweet_id."' and user_fav_id=".$_COOKIE["id"];
+                    $result5 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_fav=false;
+                    if ($result5->num_rows>0) {
+                        $you_fav=true;
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM rt WHERE tweet_id='".$tweet_id."' and user_rt_id=".$_COOKIE["id"];
+                    $result6 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_rt=false;
+                    if ($result6->num_rows>0) {
+                        $you_rt=true;
+                    }
+
+                    $arr[]=Array(
+                        "user_id"=>$user_id,
+                        "nick"=>$nick,
+                        "name_twitter"=>$name_twitter,
+                        "avatar_url"=>$avatar_url,
+                        "tweet_id"=> $tweet_id, 
+                        "date"=>$date, 
+                        "content"=>$content, 
+                        "img_url"=>$img_url,
+                        "fav"=>$fav,
+                        "rt"=>$rt,
+                        "comments"=>$comments,
+                        "you_fav"=>$you_fav,
+                        "you_rt"=>$you_rt
+                    );
+                }
+
+                echo json_encode($arr);
+            }
+        }
     }
 
 
-    // Función para devolver el feed de los tweets de un usuario
-    public function profileFeed($id, $api_key) {
-        return false;
+    // Función para devolver el feed de los tweets de un perfil
+    public function profileFeed($api_key, $id, $page) {
+        if($this->checkApiKey($api_key)) {
+            $userID=$id;
+
+            $pagina_inicial = ($page-1)*20;
+            $pagina_final = $page+20;
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT user_id,tweet_id,date,content,img_url FROM tweets WHERE user_id=".$userID." ORDER BY date desc LIMIT {$pagina_inicial},{$pagina_final}";
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $user_id=$row["user_id"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"]; 
+                    $content=$row["content"];
+                    $img_url=$row["img_url"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as fav FROM favs WHERE tweet_id='".$tweet_id."'";
+                    $result3 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $fav=0;
+                    if ($result3->num_rows>0) {
+                        while($row = $result3->fetch_assoc()) {
+                            $fav=intval($row["fav"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as rt FROM rt WHERE tweet_id='".$tweet_id."'";
+                    $result03 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $rt=0;
+                    if ($result03->num_rows>0) {
+                        while($row = $result03->fetch_assoc()) {
+                            $rt=intval($row["rt"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as comments FROM comments WHERE tweet_id='".$tweet_id."'";
+                    $result4 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $comments=0;
+                    if ($result4->num_rows>0) {
+                        while($row = $result4->fetch_assoc()) {
+                            $comments=intval($row["comments"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM favs WHERE tweet_id='".$tweet_id."' and user_fav_id=".$_COOKIE["id"];
+                    $result5 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_fav=false;
+                    if ($result5->num_rows>0) {
+                        $you_fav=true;
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM rt WHERE tweet_id='".$tweet_id."' and user_rt_id=".$_COOKIE["id"];
+                    $result6 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_rt=false;
+                    if ($result6->num_rows>0) {
+                        $you_rt=true;
+                    }
+
+                    $arr[]=Array(
+                        "tweet_id"=> $tweet_id, 
+                        "date"=>$date, 
+                        "content"=>$content, 
+                        "img_url"=>$img_url,
+                        "fav"=>$fav,
+                        "rt"=>$rt,
+                        "comments"=>$comments,
+                        "you_fav"=>$you_fav,
+                        "you_rt"=>$you_rt
+                    );
+                }
+
+                echo json_encode($arr);
+            }
+        }
+    }
+
+
+    // Función para obtener información de un tweet y sus comentarios
+    public function tweetPage($api_key, $tweet_id) {
+        if($this->checkApiKey($api_key)) {
+            $conexion = DB::connectDB();
+            $sql = "SELECT user_id,tweet_id,date,content,img_url FROM tweets WHERE tweet_id='".$tweet_id."' LIMIT 1";
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $user_id=$row["user_id"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"]; 
+                    $content=$row["content"];
+                    $img_url=$row["img_url"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT user.nick as nick,user.name_twitter as name_twitter,user_bio.avatar_url as avatar_url FROM user INNER JOIN user_bio ON user.id=user_bio.user_id WHERE user.id=".$user_id;
+                    $result2 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $nick="";
+                    $name_twitter="";
+                    $avatar_url="";
+                    if ($result2->num_rows>0) {
+                        while($row = $result2->fetch_assoc()) {
+                            $nick=$row["nick"];
+                            $name_twitter=$row["name_twitter"];
+                            $avatar_url=$row["avatar_url"]; 
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as fav FROM favs WHERE tweet_id='".$tweet_id."'";
+                    $result3 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $fav=0;
+                    if ($result3->num_rows>0) {
+                        while($row = $result3->fetch_assoc()) {
+                            $fav=intval($row["fav"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as rt FROM rt WHERE tweet_id='".$tweet_id."'";
+                    $result03 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $rt=0;
+                    if ($result03->num_rows>0) {
+                        while($row = $result03->fetch_assoc()) {
+                            $rt=intval($row["rt"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as comments FROM comments WHERE tweet_id='".$tweet_id."'";
+                    $result4 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $comments=0;
+                    if ($result4->num_rows>0) {
+                        while($row = $result4->fetch_assoc()) {
+                            $comments=intval($row["comments"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM favs WHERE tweet_id='".$tweet_id."' and user_fav_id=".$_COOKIE["id"];
+                    $result5 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_fav=false;
+                    if ($result5->num_rows>0) {
+                        $you_fav=true;
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM rt WHERE tweet_id='".$tweet_id."' and user_rt_id=".$_COOKIE["id"];
+                    $result6 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_rt=false;
+                    if ($result6->num_rows>0) {
+                        $you_rt=true;
+                    }
+
+                    $arr[]=Array(
+                        "user_id"=>$user_id,
+                        "nick"=>$nick,
+                        "name_twitter"=>$name_twitter,
+                        "avatar_url"=>$avatar_url,
+                        "tweet_id"=> $tweet_id, 
+                        "date"=>$date, 
+                        "content"=>$content, 
+                        "img_url"=>$img_url,
+                        "fav"=>$fav,
+                        "rt"=>$rt,
+                        "comments"=>$comments,
+                        "you_fav"=>$you_fav,
+                        "you_rt"=>$you_rt,
+                        "comments"=>Array()
+                    );
+                }
+
+                echo json_encode($arr);
+            }
+        }
+    }
+
+
+    // Función para devolver el feed de los tweets de un perfil
+    public function followsFeed($api_key, $page) {
+        if($this->checkApiKey($api_key)) {
+            
+        }
+    }    
+
+
+    // Función que devuelve los ajuestes de la cuenta del usuario
+    public function settingsLoad($api_key) {
+        if($this->checkApiKey($api_key)) {
+            $id = $_COOKIE["id"];
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT user.id,user.nick,user.name_twitter,user_bio.avatar_url,user_bio.bio,user_bio.banner_url FROM user INNER JOIN user_bio ON user.id=user_bio.user_id WHERE user.id=".$id;
+            $result = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result->num_rows>0) {
+                $arr = Array();
+                while($row = $result->fetch_assoc()) {
+                    $arr[]=Array(
+                        "id"=>$row["id"], 
+                        "nick"=> $row["nick"], 
+                        "name_twitter"=>$row["name_twitter"], 
+                        "bio"=> $row["bio"], 
+                        "avatar_url"=>$row["avatar_url"], 
+                        "banner_url"=>$row["banner_url"]
+                    );
+                }
+                echo json_encode($arr);
+            }
+
+        }
+    }
+
+
+    // Función para actualizar ajustes de la cuenta (nombre, biografía, banner, avatar...)
+    public function settings($api_key, $avatar_url, $banner_url, $name, $bio) {
+        if($this->checkApiKey($api_key)) {
+            $id = $_COOKIE["id"];
+
+            $avatar=$avatar_url;
+            if($avatar_url!="img/default.png" && strpos($avatar_url, '_avatar.jpg')==false){
+                $this->downloadURL($avatar_url, "avatar");
+                $avatar="/backend/img/".$_COOKIE['id']."_avatar.jpg";
+            }
+
+            $banner=$banner_url;
+            if($banner_url!="img/banner.jpg" && strpos($banner_url, '_banner.jpg')==false){
+                $this->downloadURL($banner_url, "banner");
+                $banner="/backend/img/".$_COOKIE['id']."_banner.jpg";
+            }
+
+            $conexion = DB::connectDB();
+            $sql = "UPDATE user SET name_twitter='".$name."' WHERE id=".$id;
+            $conexion->query($sql);
+            $conexion->close();
+
+            $conexion = DB::connectDB();
+            $sql = "UPDATE user_bio SET bio='".$bio."', avatar_url='".$avatar."', banner_url='".$banner."' WHERE user_id=".$id;
+            $conexion->query($sql);
+            $conexion->close();
+        }
+    }
+
+
+    // Función para hacer un comentario en un tweet
+    public function comment($api_key, $tweet_id, $content) {
+        if($this->checkApiKey($api_key)) {
+        }
     }
     
 
     // Función para crear una notificicacion
     public function notification($id, $api_key, $type) {
         // type= follower, mention, fav, retweet, reply
-        return false;
-    }
-
-
-    // Función para actualizar ajustes de la cuenta (nombre, biografía, banner, avatar...)
-    public function settings($id, $api_key, $type) {
-        // Para las imagenes descargarlas en local desde url con la funcion: downloadURL()
-        return false;
+        if($this->checkApiKey($api_key)) {
+            
+        }
     }
 
 }

@@ -120,6 +120,7 @@ body a {
           flex: 50%;
   border-left: 1px solid #ebeef0;
   border-right: 1px solid #ebeef0;
+  padding-bottom: 20px;
 }
 
 .container div.part-2 .sticky {
@@ -147,7 +148,37 @@ body a {
 }
 
 .container div.part-2 .perfil #foto-perfil {
-  border-radius: 250px;
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+}
+
+@media (max-width: 980px) {
+  .container div.part-2 .perfil #foto-perfil {
+    width: 35%;
+    height: 35%;
+    border-radius: 100%;
+  }
+}
+
+@media (max-width: 670px) {
+  .container div.part-2 .perfil #foto-perfil {
+    width: 35%;
+    height: 35%;
+    border-radius: 100%;
+  }
+  .container div.part-2 .perfil #boton {
+    width: 30vw !important;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container div.part-2 .perfil #foto-perfil {
+    width: 35%;
+    height: 35%;
+    border-radius: 100%;
+  }
 }
 
 .container div.part-2 .perfil .logo {

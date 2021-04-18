@@ -135,6 +135,27 @@ body a {
   margin-left: 10px;
 }
 
+.container div.part-2 header h3 span {
+  vertical-align: super;
+}
+
+.container div.part-2 header #atras {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 8px;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+
+.container div.part-2 header #atras svg {
+  fill: #22A1F2;
+}
+
+.container div.part-2 header #atras:hover {
+  background-color: #E8F5FF;
+}
+
 .container div.part-2 .twittear {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -203,6 +224,38 @@ body a {
 .container div.part-2 .tweet div.contenido-tweet div div span {
   margin-left: 2px;
   margin-top: 7px;
+}
+
+.container div.part-2 .tweet div.contenido-tweet .fav_true span {
+  color: #e0245e !important;
+}
+
+.container div.part-2 .tweet div.contenido-tweet .rt_true span {
+  color: #17BF63 !important;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios svg {
+  fill: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios span {
+  color: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt svg {
+  fill: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt span {
+  color: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav svg {
+  fill: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav span {
+  color: #5B7083;
 }
 
 .container div.part-2 .tweet div.contenido-tweet #comentarios:hover {

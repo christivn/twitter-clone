@@ -9,14 +9,16 @@ function callBackRandomUsers() {
 
         let contenido = document.getElementsByClassName("contenido");
         for(let i=0;i<contenido.length;i++){
-            let x=data[i];
-            contenido[i].getElementsByClassName("foto-perfil")[0].src=x.avatar_url;
-            contenido[i].getElementsByClassName("nombre")[0].textContent=x.name_twitter;
-            contenido[i].getElementsByClassName("arroba")[0].textContent="@"+x.nick;
+            if(data[i]!==undefined){
+                let x=data[i];
+                contenido[i].getElementsByClassName("foto-perfil")[0].src=x.avatar_url;
+                contenido[i].getElementsByClassName("nombre")[0].textContent=x.name_twitter;
+                contenido[i].getElementsByClassName("arroba")[0].textContent="@"+x.nick;
 
-            contenido[i].addEventListener('click', function (event) {
-                window.location.href = "profile.html?id="+x.id;
-            }, false);
+                contenido[i].addEventListener('click', function (event) {
+                    window.location.href = "profile.html?id="+x.id;
+                }, false);
+            }
         }
     }
 }
