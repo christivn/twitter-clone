@@ -243,10 +243,11 @@ class Twitter {
     public function follow($api_key, $followed_id) {
         if($this->checkApiKey($api_key)){
             $id = $_COOKIE["id"];
+            $date = date('Y-m-d H:i:s');
 
             if($id!=$followed_id){
                 $conexion = DB::connectDB();
-                $sql = "INSERT INTO follows (following_user_id,followed_user_id	) VALUES (".$id.",".$followed_id.")";
+                $sql = "INSERT INTO follows (following_user_id,followed_user_id,date) VALUES (".$id.",".$followed_id.", '".$date."')";
                 if ($conexion->query($sql) != TRUE) {
                     echo "Error: " . $sql . "<br>" . $conexion->error;
                 }
@@ -859,18 +860,263 @@ class Twitter {
 
 
     // Función para devolver el feed de los tweets de un perfil
+    // SELECT user.id as id,user.nick as nick,user.name_twitter as name_twitter,tweets.tweet_id as tweet_id,tweets.content as content,tweets.img_url as img_url,tweets.date as date FROM user  INNER JOIN follows ON user.id=follows.followed_user_id INNER JOIN tweets ON follows.followed_user_id=tweets.user_id WHERE follows.following_user_id=4
     public function followsFeed($api_key, $page) {
         if($this->checkApiKey($api_key)) {
+            $id = $_COOKIE["id"];
+
+            $pagina_inicial = ($page-1)*20;
+            $pagina_final = $page+20;
             
+            $conexion = DB::connectDB();
+            $sql = "SELECT user.id as id,user.nick as nick,user.name_twitter as name_twitter,tweets.tweet_id as tweet_id,tweets.content as content,tweets.img_url as img_url,tweets.date as date FROM user  INNER JOIN follows ON user.id=follows.followed_user_id INNER JOIN tweets ON follows.followed_user_id=tweets.user_id WHERE follows.following_user_id=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $result2 = $conexion->query($sql);
+            $conexion->close();
+
+            $arr[]=Array();
+            if ($result2->num_rows>0) {
+                while($row = $result2->fetch_assoc()) {
+                    $user_id=$row["id"];
+                    $nick=$row["nick"];
+                    $name_twitter=$row["name_twitter"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"];
+                    $content=$row["content"];
+                    $img_url=$row["img_url"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as fav FROM favs WHERE tweet_id='".$tweet_id."'";
+                    $result3 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $fav=0;
+                    if ($result3->num_rows>0) {
+                        while($row = $result3->fetch_assoc()) {
+                            $fav=intval($row["fav"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as rt FROM rt WHERE tweet_id='".$tweet_id."'";
+                    $result03 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $rt=0;
+                    if ($result03->num_rows>0) {
+                        while($row = $result03->fetch_assoc()) {
+                            $rt=intval($row["rt"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT count(tweet_id) as comments FROM comments WHERE tweet_id='".$tweet_id."'";
+                    $result4 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $comments=0;
+                    if ($result4->num_rows>0) {
+                        while($row = $result4->fetch_assoc()) {
+                            $comments=intval($row["comments"]);
+                        }
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM favs WHERE tweet_id='".$tweet_id."' and user_fav_id=".$_COOKIE["id"];
+                    $result5 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_fav=false;
+                    if ($result5->num_rows>0) {
+                        $you_fav=true;
+                    }
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT tweet_id FROM rt WHERE tweet_id='".$tweet_id."' and user_rt_id=".$_COOKIE["id"];
+                    $result6 = $conexion->query($sql);
+                    $conexion->close();
+
+                    $you_rt=false;
+                    if ($result6->num_rows>0) {
+                        $you_rt=true;
+                    }
+
+                    $arr[]=Array(
+                        "user_id"=>$user_id,
+                        "nick"=>$nick,
+                        "name_twitter"=>$name_twitter,
+                        "tweet_id"=> $tweet_id, 
+                        "date"=>$date, 
+                        "content"=>$content, 
+                        "img_url"=>$img_url,
+                        "fav"=>$fav,
+                        "rt"=>$rt,
+                        "comments"=>$comments,
+                        "you_fav"=>$you_fav,
+                        "you_rt"=>$you_rt,
+                    );
+                }
+            }
+
+            echo json_encode($arr);
         }
     }
 
 
     // Función que devuelve las notificaciones de un usuario
+    //--------------------------------------------------------------------------------------
+    // FAVS
+    // SELECT DISTINCT favs.user_fav_id as user_id, favs.tweet_id as tweet_id, favs.date as date  FROM favs INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=4) tweets ON favs.tweet_id=tweets.tweet_id and favs.user_fav_id!=4
+
+    // RT
+    // SELECT DISTINCT rt.user_rt_id as user_id, rt.tweet_id as tweet_id, rt.date as date FROM rt INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=4) tweets ON rt.tweet_id=tweets.tweet_id and rt.user_rt_id!=4
+
+    // COMMENTS
+    // SELECT DISTINCT comments.user_id as user_id, comments.tweet_id as tweet_id, comments.date as date FROM comments INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=4) tweets ON comments.tweet_id=tweets.tweet_id and comments.user_id!=4
+
+    // FOLLOWS
+    // SELECT follows.following_user_id as following_user_id, follows.date as date  FROM user INNER JOIN follows ON user.id=follows.followed_user_id WHERE user.id=4
     public function notificationFeed($api_key, $page) {
-        // type= follower, fav, retweet, comentario
         if($this->checkApiKey($api_key)) {
-            
+            $id = $_COOKIE["id"];
+
+            $pagina_inicial = ($page-1)*10;
+            $pagina_final = $page+10;
+
+            $arr=[];
+
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT DISTINCT favs.user_fav_id as user_id, favs.tweet_id as tweet_id, favs.date as date  FROM favs INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=".$id.") tweets ON favs.tweet_id=tweets.tweet_id and favs.user_fav_id!=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $result1 = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result1->num_rows>0) {
+                while($row = $result1->fetch_assoc()) {
+                    $user_id=$row["user_id"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT nick as nick,name_twitter as name_twitter FROM user WHERE id='".$row["user_id"]."'";
+                    $result2 = $conexion->query($sql);
+                    $conexion->close();
+
+                    if ($result2->num_rows>0) {
+                        while($row = $result2->fetch_assoc()) {
+                            $arr[]=Array(
+                                "type"=>"fav",
+                                "user_id"=>$user_id,
+                                "nick"=>$row["nick"],
+                                "name_twitter"=>$row["name_twitter"],
+                                "tweet_id"=>$tweet_id,
+                                "date"=>$date
+                            );
+                        }
+                    }
+                }
+            }
+
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT DISTINCT rt.user_rt_id as user_id, rt.tweet_id as tweet_id, rt.date as date FROM rt INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=".$id.") tweets ON rt.tweet_id=tweets.tweet_id and rt.user_rt_id!=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $result1 = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result1->num_rows>0) {
+                while($row = $result1->fetch_assoc()) {
+                    $user_id=$row["user_id"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT nick as nick,name_twitter as name_twitter FROM user WHERE id='".$row["user_id"]."'";
+                    $result2 = $conexion->query($sql);
+                    $conexion->close();
+
+                    if ($result2->num_rows>0) {
+                        while($row = $result2->fetch_assoc()) {
+                            $arr[]=Array(
+                                "type"=>"rt",
+                                "user_id"=>$user_id,
+                                "nick"=>$row["nick"],
+                                "name_twitter"=>$row["name_twitter"],
+                                "tweet_id"=>$tweet_id,
+                                "date"=>$date
+                            );
+                        }
+                    }
+                }
+            }
+
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT DISTINCT comments.user_id as user_id, comments.tweet_id as tweet_id, comments.date as date FROM comments INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=".$id.") tweets ON comments.tweet_id=tweets.tweet_id and comments.user_id!=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $result1 = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result1->num_rows>0) {
+                while($row = $result1->fetch_assoc()) {
+                    $user_id=$row["user_id"];
+                    $tweet_id=$row["tweet_id"];
+                    $date=$row["date"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT nick as nick,name_twitter as name_twitter FROM user WHERE id='".$row["user_id"]."'";
+                    $result2 = $conexion->query($sql);
+                    $conexion->close();
+
+                    if ($result2->num_rows>0) {
+                        while($row = $result2->fetch_assoc()) {
+                            $arr[]=Array(
+                                "type"=>"comment",
+                                "user_id"=>$user_id,
+                                "nick"=>$row["nick"],
+                                "name_twitter"=>$row["name_twitter"],
+                                "tweet_id"=>$tweet_id,
+                                "date"=>$date
+                            );
+                        }
+                    }
+                }
+            }
+
+
+            $conexion = DB::connectDB();
+            $sql = "SELECT follows.following_user_id as following_user_id, follows.date as date  FROM user INNER JOIN follows ON user.id=follows.followed_user_id WHERE user.id=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $result1 = $conexion->query($sql);
+            $conexion->close();
+
+            if ($result1->num_rows>0) {
+                while($row = $result1->fetch_assoc()) {
+                    $user_id=$row["following_user_id"];
+                    $date=$row["date"];
+
+                    $conexion = DB::connectDB();
+                    $sql = "SELECT nick as nick,name_twitter as name_twitter FROM user WHERE id='".$row["following_user_id"]."'";
+                    $result2 = $conexion->query($sql);
+                    $conexion->close();
+
+                    if ($result2->num_rows>0) {
+                        while($row = $result2->fetch_assoc()) {
+                            $arr[]=Array(
+                                "type"=>"follow",
+                                "user_id"=>$user_id,
+                                "nick"=>$row["nick"],
+                                "name_twitter"=>$row["name_twitter"],
+                                "date"=>$date
+                            );
+                        }
+                    }
+                }
+            }
+
+            usort($arr, function($a1, $a2) {
+                $v1 = strtotime($a1['date']);
+                $v2 = strtotime($a2['date']);
+                return $v1 - $v2;
+             });
+
+            echo json_encode(array_reverse($arr));
         }
     }
 
@@ -879,6 +1125,13 @@ class Twitter {
     public function deleteTweet($api_key, $tweet_id) {
         if($this->checkApiKey($api_key)) {
             $id = $_COOKIE["id"];
+
+            $conexion = DB::connectDB();
+            $sql = "DELETE FROM tweets WHERE tweet_id='".$tweet_id."' and user_id=".$id;
+            if ($conexion->query($sql) != TRUE) {
+                echo "Error: " . $sql . "<br>" . $conexion->error;
+            }
+            $conexion->close();
         }
     }
 

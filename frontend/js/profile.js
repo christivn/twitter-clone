@@ -27,8 +27,10 @@ function callBack() {
             document.getElementById("followers").textContent=data.followers;
             document.getElementById("following").textContent=data.following;
 
+            let edit = false;
             let boton = document.getElementById("boton");
             if(data.edit){
+                edit = true;
                 boton.textContent="Ajustes";
                 boton.classList.remove('boton-secundario');
                 boton.classList.add('boton-principal');
@@ -134,6 +136,10 @@ function callBack() {
                                     rt_svg=`<svg class="rt_svg_`+data[i].tweet_id+`" viewBox="0 0 24 24" class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"><g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g></svg>`;
                                 }
 
+                                let ajustes = "";
+                                if(edit){
+                                    ajustes = ` <font style="float:float: right;"><svg id="ajustes" onclick="mostrarModal(`+data[i].tweet_id+`);" viewBox="0 0 24 24" class="r-4qtqp9 r-yyyyoo r-1xvli5t r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-1hdv0qi"><g><circle cx="5" cy="12" r="2"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="19" cy="12" r="2"></circle></g></svg></font>`;
+                                }
 
                                 let tweet = `
                                 <div class="tweet" id="`+data[i].tweet_id+`">
@@ -142,7 +148,7 @@ function callBack() {
                                     </div>
 
                                     <div class="contenido-tweet">
-                                        <span><b>`+name_twitter+`</b> `+nick+` ·  `+fecha_tweet+`</span>
+                                        <span><b>`+name_twitter+`</b> `+nick+` ·  `+fecha_tweet+ajustes+`</span>
                                         <p style="margin-top:6px;">`+data[i].content+`</p>
 
                                         `+img+`
@@ -182,8 +188,6 @@ function callBack() {
                             }
                         }
 
-
-
         }
     }
 }
@@ -214,7 +218,7 @@ function getCookie(cname) {
     return "";
   }
 
-  function findGetParameter(parameterName) {
+function findGetParameter(parameterName) {
     var result = null,
         tmp = [];
     var items = location.search.substr(1).split("&");
@@ -223,4 +227,29 @@ function getCookie(cname) {
         if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
     }
     return result;
+}
+
+function mostrarModal(tweet_id){
+    let modalEliminar = document.getElementById("ajustes-modal");
+    let botonEliminar = document.getElementById("eliminarTweet");
+    modalEliminar.style.display = "block";
+
+    window.onclick = function(event) {
+        if (event.target == modalEliminar) {
+          modalEliminar.style.display = "none";
+        }
+    }
+
+    botonEliminar.onclick = function() {
+        conexionEliminar=new XMLHttpRequest();
+        conexionEliminar.addEventListener('readystatechange',callBackEliminar);
+        conexionEliminar.open('GET',"http://127.0.0.1/backend/deleteTweet.php?api_key="+getCookie("api_key")+"&tweet_id="+tweet_id.id);
+        conexionEliminar.send();
+
+        function callBackEliminar() {
+            if(conexionEliminar.readyState == 4 && conexionEliminar.status == 200) {
+                location.reload();
+            }
+        }
+    }
 }

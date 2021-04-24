@@ -134,6 +134,31 @@ body a {
 
 .container div.part-2 header h3 {
   margin-left: 10px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.container div.part-2 header h3 span {
+  vertical-align: super;
+}
+
+.container div.part-2 header #atras {
+  cursor: pointer;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  padding: 8px;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+
+.container div.part-2 header #atras svg {
+  fill: #22A1F2;
+}
+
+.container div.part-2 header #atras:hover {
+  background-color: #E8F5FF;
 }
 
 .container div.part-2 .banner img {
@@ -299,6 +324,20 @@ body a {
 
 .container div.part-2 .tweet:hover {
   background-color: #F7F7F7;
+  cursor: pointer;
+}
+
+.container #ajustes {
+  float: right;
+  padding: 5px;
+  fill: #5B7083;
+  width: 40px;
+}
+
+.container #ajustes:hover {
+  background-color: #E0EEF8;
+  border-radius: 50px;
+  fill: #2FA9F3;
   cursor: pointer;
 }
 
