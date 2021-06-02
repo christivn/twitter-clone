@@ -986,7 +986,7 @@ class Twitter {
 
 
             $conexion = DB::connectDB();
-            $sql = "SELECT DISTINCT favs.user_fav_id as user_id, favs.tweet_id as tweet_id, favs.date as date  FROM favs INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=".$id.") tweets ON favs.tweet_id=tweets.tweet_id and favs.user_fav_id!=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $sql = "SELECT DISTINCT favs.user_fav_id as user_id, favs.tweet_id as tweet_id, favs.date as date FROM favs INNER JOIN (SELECT tweets.user_id as user_id,tweets.tweet_id as tweet_id from tweets where tweets.user_id=".$id.") tweets ON favs.tweet_id=tweets.tweet_id and favs.user_fav_id!=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
             $result1 = $conexion->query($sql);
             $conexion->close();
 
@@ -997,7 +997,7 @@ class Twitter {
                     $date=$row["date"];
 
                     $conexion = DB::connectDB();
-                    $sql = "SELECT nick as nick,name_twitter as name_twitter FROM user WHERE id='".$row["user_id"]."'";
+                    $sql = "SELECT nick as nick,name_twitter as name_twitter FROM user WHERE id=".$row["user_id"]."";
                     $result2 = $conexion->query($sql);
                     $conexion->close();
 

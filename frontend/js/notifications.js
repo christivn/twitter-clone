@@ -11,6 +11,7 @@ function cargarTweets(page){
         if(conexion.readyState == 4 && conexion.status == 200) {
             if(conexion.responseText.length>0){
                 let data=JSON.parse(conexion.responseText);
+                console.log(data);
 
                 let spinner=document.getElementById("spinner").style.display="none";
 
@@ -20,7 +21,7 @@ function cargarTweets(page){
 
                 let lista=document.getElementById("lista");
 
-                for(let i=1;i<data.length;i++){
+                for(let i=0;i<data.length;i++){
                     let date = data[i].date;
                     let partes_date = date.split(" ");
                     let fecha = partes_date[0].split("-");
