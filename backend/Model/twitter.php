@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 require_once './Model/connection.php';
 
 header('Access-Control-Allow-Origin: *');
@@ -16,6 +17,22 @@ function generateRandomString($length = 16) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomString;
+}
+
+function sendRefreshNotification($api_key){
+ $options = array(
+   'cluster' => 'eu',
+   'useTLS' => true
+ );
+ $pusher = new Pusher\Pusher(
+   '702efbe44c87a754783e',
+   'd2dbdcab3821874ff87a',
+   '1217133',
+   $options
+ );
+
+ $data['api_key'] = $api_key;
+ $pusher->trigger('my-channel', 'my-event', $data);
 }
 
 
@@ -292,6 +309,7 @@ class Twitter {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
             $conexion->close();
+            sendRefreshNotification($api_key);
         }
     }
 
@@ -324,6 +342,7 @@ class Twitter {
                 echo "Error: " . $sql . "<br>" . $conexion->error;
             }
             $conexion->close();
+            sendRefreshNotification($api_key);
         }
     }
 

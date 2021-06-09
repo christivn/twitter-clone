@@ -1,6 +1,26 @@
 let page = 1;
 cargarTweets(page);
 
+Pusher.logToConsole = true;
+var pusher = new Pusher('702efbe44c87a754783e', {
+  cluster: 'eu'
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('my-event', function(data) {
+    if(JSON.stringify(data).api_key==""){
+
+    }
+    refrescar();
+});
+
+
+function refrescar(){
+    document.getElementById("lista-tweets").innerHTML="";
+    document.getElementById("spinner").style.display="visible";
+    cargarTweets(page);
+}
+
 function cargarTweets(page){
     conexion=new XMLHttpRequest();
     conexion.addEventListener('readystatechange',callBack);
@@ -12,10 +32,10 @@ function cargarTweets(page){
             if(conexion.responseText.length>0){
                 let data=JSON.parse(conexion.responseText);
 
-                let spinner=document.getElementById("spinner").style.display="none";
+                document.getElementById("spinner").style.display="none";
 
                 if(page!=1){
-                    let ver_mas=document.getElementById("ver-mas").style.visibility="visible";
+                    document.getElementById("ver-mas").style.visibility="visible";
                 }
 
                 let lista=document.getElementById("lista-tweets");
