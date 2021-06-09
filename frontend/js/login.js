@@ -1,7 +1,7 @@
+let error = document.getElementById("error-login");
 
 function login() {
     let errores = false;
-    let error = document.getElementById("error-login");
     error.textContent = "";
 
     let usuario = document.getElementById("login-usuario").value;
