@@ -8,10 +8,9 @@ var pusher = new Pusher('702efbe44c87a754783e', {
 
 var channel = pusher.subscribe('my-channel');
 channel.bind('my-event', function(data) {
-    if(JSON.stringify(data).api_key==""){
-
+    if(JSON.stringify(data).api_key==getCookie("api_key")){
+        refrescar();
     }
-    refrescar();
 });
 
 
@@ -161,3 +160,21 @@ function cargarTweets(page){
 
 
 document.getElementById("ver-mas").addEventListener("click", function(){ page+=1; cargarTweets(page);}, false);
+
+
+//=================================================================================================
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
