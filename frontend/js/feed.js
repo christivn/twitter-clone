@@ -89,6 +89,11 @@ function cargarTweets(page){
                         avatar_img="/backend/img/"+data[i].user_id+"_avatar.jpg";
                     }
 
+                    let type_feed="";
+                    if(data[i].type_feed=="rt"){
+                        type_feed='<p style="margin-top:0px;margin-bottom: 5px;color:#55CE8C;font-weight: bold;"><svg style="fill:#55CE8C;width:16px;" viewBox="0 0 24 24"><g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g></svg> Este tweet es un rt de '+data[i].rt_name+'</p>';
+                    }
+
                     let tweet = `
                     <div class="tweet" id="`+data[i].tweet_id+`">
                         <div class="foto-perfil" onclick="window.location.href = 'profile.html?id=`+data[i].user_id+`';">
@@ -96,6 +101,7 @@ function cargarTweets(page){
                         </div>
 
                         <div class="contenido-tweet">
+                            `+type_feed+`
                             <span  onclick="window.location.href = 'profile.html?id=`+data[i].user_id+`';"><b>`+data[i].name_twitter+`</b> @`+data[i].nick+` ·  `+fecha_tweet+`</span>
                             <p style="margin-top:6px;">`+data[i].content+`</p>
 

@@ -863,17 +863,16 @@ class Twitter {
     // SELECT user.id as id,user.nick as nick,user.name_twitter as name_twitter,tweets.tweet_id as tweet_id,tweets.content as content,tweets.img_url as img_url,tweets.date as date FROM user  INNER JOIN follows ON user.id=follows.followed_user_id INNER JOIN tweets ON follows.followed_user_id=tweets.user_id WHERE follows.following_user_id=4
     public function followsFeed($api_key, $page) {
         if($this->checkApiKey($api_key)) {
-            $id = $_COOKIE["id"];
 
+            $arr[]=Array();
             $pagina_inicial = ($page-1)*20;
             $pagina_final = $page+20;
             
             $conexion = DB::connectDB();
-            $sql = "SELECT user.id as id,user.nick as nick,user.name_twitter as name_twitter,tweets.tweet_id as tweet_id,tweets.content as content,tweets.img_url as img_url,tweets.date as date FROM user  INNER JOIN follows ON user.id=follows.followed_user_id INNER JOIN tweets ON follows.followed_user_id=tweets.user_id WHERE follows.following_user_id=".$id." LIMIT {$pagina_inicial},{$pagina_final}";
+            $sql = "SELECT id,nick,name_twitter,tweet_id,content,img_url,date,type_feed,rt_id,rt_name FROM ( SELECT user.id as id,user.nick as nick,user.name_twitter as name_twitter,tweets.tweet_id as tweet_id,tweets.content as content,tweets.img_url as img_url,tweets.date as date, 'follow' as type_feed, null as rt_id, null as rt_name FROM user INNER JOIN follows ON user.id=follows.followed_user_id INNER JOIN tweets ON follows.followed_user_id=tweets.user_id INNER JOIN (SELECT id as user_id from user where api_key='".$api_key."') as idtable ON follows.following_user_id=idtable.user_id UNION ALL SELECT distinct user.id as id,user.nick as nick,user.name_twitter as name_twitter,tweets.tweet_id as tweet_id,tweets.content as content,tweets.img_url as img_url,tweets.date as date, 'rt' as type_feed, rt.user_rt_id as rt_id, name.name_twitter as rt_name FROM user INNER JOIN (SELECT id as user_id from user where api_key='".$api_key."') as idtable ON user.id=idtable.user_id INNER JOIN follows ON idtable.user_id=follows.following_user_id INNER JOIN user as usuario ON usuario.id=follows.followed_user_id INNER JOIN rt ON usuario.id=rt.user_rt_id INNER JOIN tweets ON follows.followed_user_id=tweets.user_id INNER JOIN user as name ON name.id=usuario.id ) feed Order by date desc LIMIT {$pagina_inicial},{$pagina_final}";
             $result2 = $conexion->query($sql);
             $conexion->close();
 
-            $arr[]=Array();
             if ($result2->num_rows>0) {
                 while($row = $result2->fetch_assoc()) {
                     $user_id=$row["id"];
@@ -883,6 +882,8 @@ class Twitter {
                     $date=$row["date"];
                     $content=$row["content"];
                     $img_url=$row["img_url"];
+                    $type_feed=$row["type_feed"];
+                    $rt_name=$row["rt_name"];
 
                     $conexion = DB::connectDB();
                     $sql = "SELECT count(tweet_id) as fav FROM favs WHERE tweet_id='".$tweet_id."'";
@@ -948,6 +949,8 @@ class Twitter {
                         "date"=>$date, 
                         "content"=>$content, 
                         "img_url"=>$img_url,
+                        "type_feed"=>$type_feed,
+                        "rt_name"=>$rt_name,
                         "fav"=>$fav,
                         "rt"=>$rt,
                         "comments"=>$comments,
