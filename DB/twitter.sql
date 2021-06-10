@@ -138,12 +138,6 @@ ALTER TABLE `follows`
   ADD PRIMARY KEY (`following_user_id`,`followed_user_id`);
 
 --
--- Indices de la tabla `notifications`
---
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`user_id`);
-
---
 -- Indices de la tabla `rt`
 --
 ALTER TABLE `rt`
