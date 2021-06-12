@@ -20,7 +20,7 @@ pass : string
 {
     "code": 200,
     "id": 345,
-    "api_key"=> "njQEZNw25rVSGLtI",
+    "api_key": "njQEZNw25rVSGLtI",
     "msg":"Se ha completado la peticion correctamente"
 }
 ```
