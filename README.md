@@ -7,9 +7,29 @@ Apliación web responsive que imita la interfaz y funcionamiento de twitter. Hec
 
 Twitter clone hace uso de [Pusher](http://pusher.com) una herramienta que permite mediante su SDK hacer aplicaciones en tiempo real mucho más optimizadas.
 
+<br><br>
+
 <table>
   <tr>
     <td><h2>Tecnologias</h2> Mysql, Php, Javascript, HTML5, CSS/SASS, AJAX, JSON, API, Pusher (http://pusher.com)</td>
+    <td width="50%"><img align="left" width="90%" src="https://i.imgur.com/vm1I6tb.png"></td>     
+  </tr> 
+</table>
+
+ <br>
+
+<table>
+  <tr>
+    <td><h2>Interfaz</h2> La interfaz se hizo desde cero usando SASS, e intentado que quedara lo más parecido a la interfaz real de twitter. También es responsive, por lo que el diseño se adapta a la pantalla del usuario.</td>
+    <td width="50%"><img align="left" width="90%" src="https://i.imgur.com/MsTr8Ki.png"></td>     
+  </tr> 
+</table>
+
+ <br>
+
+<table>
+  <tr>
+    <td><h2>API</h2> Mysql, Php, Javascript, HTML5, CSS/SASS, AJAX, JSON, API, Pusher (http://pusher.com)</td>
     <td width="50%"><img align="left" width="90%" src="https://i.imgur.com/vm1I6tb.png"></td>     
   </tr> 
 </table>
@@ -26,5 +46,4 @@ Twitter clone hace uso de [Pusher](http://pusher.com) una herramienta que permit
 
 <br>
 
-| Author: [Christian Ramos](http://christivn.es) |
-| --- |
+<p align="center"><b>Author: <a href="http://christivn.es">Christian Ramos</a></b></p>
