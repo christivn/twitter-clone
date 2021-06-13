@@ -29,7 +29,7 @@ Twitter clone hace uso de [Pusher](http://pusher.com) una herramienta que permit
 
 <table>
   <tr>
-    <td><h2>API</h2> Mysql, Php, Javascript, HTML5, CSS/SASS, AJAX, JSON, API, Pusher (http://pusher.com)</td>
+    <td><h2>API</h2> Twitter clone está separado en Frontend y Backend, su funcionamiento se basa en un cliente que hace peticiones a la API y está le devuelve los datos en formato JSON, para imprimirlos en el DOM.</td>
     <td width="50%"><img align="left" width="90%" src="https://i.imgur.com/vm1I6tb.png"></td>     
   </tr> 
 </table>
@@ -38,7 +38,7 @@ Twitter clone hace uso de [Pusher](http://pusher.com) una herramienta que permit
 
 <table>
   <tr>
-    <td><h2>Documentación de la API</h2> <a href="https://github.com/christivn/twitter-clone/tree/main/documentacion-api">Enlace a la documentación</a></td>
+    <td><h2>Documentación de la API</h2> <a href="https://github.com/christivn/twitter-clone/tree/main/documentacion-api">Las peticiones más importantes están documentadas en el siguiente enlace: Enlace a la documentación</a></td>
     <td width="50%"><img align="left" width="90%" src="https://i.imgur.com/vm1I6tb.png"></td>     
   </tr> 
 </table>
