@@ -1,0 +1,512 @@
+/*-----------------------[ RESPONSIVE ]-----------------------*/
+/*-----------------------[ LAYOUT ]-----------------------*/
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: Montserrat, System;
+}
+
+body h2 {
+  font-size: 30px;
+  line-height: 30px;
+  margin-top: 2rem;
+}
+
+body a {
+  color: #1b95e0;
+  text-decoration: none;
+}
+
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 85%;
+  height: 100vh;
+  margin: auto;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 980px) {
+  .container div.part-3 {
+    display: none;
+  }
+}
+
+@media (max-width: 670px) {
+  .container div.part-1 {
+    display: none;
+  }
+}
+
+.container div.part-1 {
+  -webkit-box-flex: 15%;
+      -ms-flex: 15%;
+          flex: 15%;
+}
+
+@media (max-width: 1200px) {
+  .container div.part-1 {
+    -webkit-box-flex: 20%;
+        -ms-flex: 20%;
+            flex: 20%;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container div.part-1 {
+    -webkit-box-flex: 12%;
+        -ms-flex: 12%;
+            flex: 12%;
+  }
+}
+
+.container div.part-1 nav {
+  position: fixed;
+  top: 0;
+}
+
+.container div.part-1 nav span {
+  font-size: 0.9em;
+  padding-right: 20px;
+}
+
+.container div.part-1 nav footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 10px;
+  cursor: pointer;
+  width: 12%;
+  padding: 10px;
+}
+
+.container div.part-1 nav footer div img {
+  width: 50px;
+  border-radius: 50px;
+}
+
+.container div.part-1 nav footer div h4 {
+  margin: 0;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.container div.part-1 nav footer div span {
+  margin-left: 10px;
+}
+
+.container div.part-1 nav footer:hover {
+  background-color: #E5F5FF;
+  border-radius: 50px;
+}
+
+.container div.part-2 {
+  -webkit-box-flex: 50%;
+      -ms-flex: 50%;
+          flex: 50%;
+  border-left: 1px solid #ebeef0;
+  border-right: 1px solid #ebeef0;
+}
+
+.container div.part-2 .sticky {
+  position: fixed;
+  top: 20px;
+}
+
+.container div.part-2 .twittear {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+}
+
+.container div.part-2 .twittear div.foto-perfil img {
+  width: 60px;
+  border-radius: 50px;
+}
+
+.container div.part-2 .twittear div.div-tweet {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.container div.part-2 .twittear div.div-tweet input {
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
+}
+
+.container div.part-2 .twittear div.div-tweet #boton-imagen {
+  width: 47px;
+  margin-top: 20px;
+  fill: #22A1F2;
+  padding: 7px;
+  cursor: pointer;
+  margin-left: -60px;
+}
+
+.container div.part-2 .twittear div.div-tweet #boton-imagen:hover {
+  background-color: #DFEEF8;
+  border-radius: 100%;
+}
+
+.container div.part-2 .twittear div.div-tweet a {
+  margin-left: 1%;
+  width: 91%;
+  float: right;
+}
+
+.container div.part-2 header {
+  border-bottom: 1px solid #ebeef0;
+}
+
+.container div.part-2 header h3 {
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.container div.part-2 header h3 span {
+  vertical-align: super;
+}
+
+.container div.part-2 header #atras {
+  cursor: pointer;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  padding: 8px;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+
+.container div.part-2 header #atras svg {
+  fill: #22A1F2;
+}
+
+.container div.part-2 header #atras:hover {
+  background-color: #E8F5FF;
+}
+
+.container div.part-2 .twittear {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid #ebeef0;
+}
+
+.container div.part-2 .twittear div.foto-perfil img {
+  width: 60px;
+  border-radius: 50px;
+}
+
+.container div.part-2 .twittear div.div-tweet {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.container div.part-2 .twittear div.div-tweet input {
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
+}
+
+.container div.part-2 .separador {
+  height: 10px;
+  background-color: #F7F9FA;
+  border-bottom: 1px solid #ebeef0;
+}
+
+.container div.part-2 .tweet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+  border-bottom: 1px solid #ebeef0;
+}
+
+.container div.part-2 .tweet div.foto-perfil img {
+  width: 50px;
+  border-radius: 50px;
+}
+
+.container div.part-2 .tweet div.contenido-tweet {
+  width: 100%;
+  padding-left: 10px;
+  font-size: 15px;
+}
+
+.container div.part-2 .tweet div.contenido-tweet div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container div.part-2 .tweet div.contenido-tweet div div svg {
+  width: 2.25em;
+  padding: 0.5em;
+}
+
+.container div.part-2 .tweet div.contenido-tweet div div span {
+  margin-left: 2px;
+  margin-top: 7px;
+}
+
+.container div.part-2 .tweet div.contenido-tweet .fav_true span {
+  color: #e0245e !important;
+}
+
+.container div.part-2 .tweet div.contenido-tweet .rt_true span {
+  color: #17BF63 !important;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios svg {
+  fill: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios span {
+  color: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt svg {
+  fill: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt span {
+  color: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav svg {
+  fill: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav span {
+  color: #5B7083;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios:hover {
+  cursor: pointer;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios:hover svg {
+  background-color: #E0EEF8;
+  border-radius: 50px;
+  fill: #2FA9F3;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #comentarios:hover span {
+  color: #2FA9F3;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt:hover {
+  cursor: pointer;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt:hover svg {
+  background-color: #E0F1E8;
+  border-radius: 50px;
+  fill: #17BF63;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #rt:hover span {
+  color: #17BF63;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav:hover {
+  cursor: pointer;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav:hover svg {
+  background-color: #F5E2E8;
+  border-radius: 50px;
+  fill: #E55380;
+}
+
+.container div.part-2 .tweet div.contenido-tweet #fav:hover span {
+  color: #E55380;
+}
+
+.container div.part-2 .tweet:hover {
+  background-color: #F7F7F7;
+  cursor: pointer;
+}
+
+.container div.part-3 {
+  -webkit-box-flex: 18%;
+      -ms-flex: 18%;
+          flex: 18%;
+  padding: 20px;
+}
+
+@media (max-width: 1200px) {
+  .container div.part-3 {
+    -webkit-box-flex: 30%;
+        -ms-flex: 30%;
+            flex: 30%;
+  }
+}
+
+.container div.part-3 .sticky {
+  position: fixed;
+  top: 20px;
+}
+
+.container div.part-3 #buscar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #EBEEF0;
+  border-radius: 50px;
+}
+
+.container div.part-3 #buscar div svg {
+  width: 50px;
+  padding: 15px;
+  fill: #5B7083;
+}
+
+.container div.part-3 #buscar div input {
+  width: 100%;
+  color: #5B7083;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+  margin-top: 2px;
+}
+
+.container div.part-3 #buscar div input:focus {
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
+}
+
+.container div.part-3 article {
+  margin-top: 20px;
+  background-color: #F7F9FA;
+  border-radius: 16px;
+}
+
+.container div.part-3 article .titulo {
+  padding: 15px;
+  border-bottom: 1px solid #ebeef0;
+}
+
+.container div.part-3 article .titulo h3 {
+  margin: 0;
+}
+
+.container div.part-3 article .contenido {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 15px;
+}
+
+.container div.part-3 article .contenido div {
+  cursor: pointer;
+}
+
+.container div.part-3 article .contenido div img {
+  width: 50px;
+  border-radius: 100%;
+}
+
+.container div.part-3 article .contenido div h4 {
+  margin: 0;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.container div.part-3 article .contenido div span {
+  margin-left: 10px;
+}
+
+.container div.part-3 article .contenido div span span {
+  margin: 0;
+  font-size: 12px;
+  background-color: #EBEEF0;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.container div.part-3 article .contenido:hover {
+  background-color: #ebecec;
+}
+
+.container div.part-3 article .contenido:hover:last-child {
+  background-color: #ebecec;
+  border-radius: 0px 0px 16px 16px;
+}
+
+.modal header {
+  border-bottom: 1px solid #ebeef0;
+}
+
+.modal header h3 {
+  margin-left: 10px;
+}
+
+.modal .twittear {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 20px;
+}
+
+.modal .twittear div.foto-perfil img {
+  width: 60px;
+  border-radius: 50px;
+}
+
+.modal .twittear div.div-tweet {
+  width: 100%;
+  padding-left: 10px;
+}
+
+.modal .twittear div.div-tweet input {
+  width: 100%;
+  border: 0;
+  -webkit-box-shadow: 0 0 0pt 0px #1da1f2;
+          box-shadow: 0 0 0pt 0px #1da1f2;
+}
+
+.modal .twittear div.div-tweet #boton-imagen {
+  width: 47px;
+  margin-top: 20px;
+  fill: #22A1F2;
+  padding: 7px;
+  cursor: pointer;
+  margin-left: -60px;
+}
+
+.modal .twittear div.div-tweet #boton-imagen:hover {
+  background-color: #DFEEF8;
+  border-radius: 100%;
+}
+
+.modal .twittear div.div-tweet a {
+  margin-left: 1%;
+  width: 91%;
+  float: right;
+}
+/*# sourceMappingURL=feed.css.map */

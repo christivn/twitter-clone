@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Twitter</title>
+    <link rel="icon" type="image/png" href="img/logo-icon.png">
+
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="js/checkCookielogin.js"></script>
+</head>
+<body>
+
+<div>
+</div>
+
+<div class="flex-container">
+    <div class="flex-left">
+        <img src="img/logo-icon-white.png" alt="logo" class="logo-grande">
+    </div>
+
+
+    <div class="flex-right">
+        <img src="img/logo-icon.png" alt="logo" class="logo">
+
+        <h1>Lo que está<br>pasando ahora</h1>
+        <h2>Únete a Twitter hoy mismo.</h2>
+
+        <br>
+        <div>
+            <a style="cursor:pointer;" id="btn-modal" class="boton-principal">Regístrate</a>
+            <a href="login" class="boton-secundario">Iniciar sesión</a>
+        </div>
+
+    </div>
+  </div>
+
+
+  <div id="Modal" class="modal">
+    <div class="modal-content">
+    <span class="close"></span>
+
+    <center><a href="index"><img src="img/logo-icon.png" alt="logo" class="logo"></a></center>
+    <br><span>Crea tu cuenta</span><br><br>
+
+    <form id="registro">
+        <div id="error" style="color:red;padding-bottom:30px;font-weight: 600;"></div>
+
+        <input type="hidden" name="nameic" id="nameic">
+
+        <input type="text" name="usuario" id="usuario" placeholder="Usuario" minlength="3">
+        <br><br>
+        <textarea style="resize: none;" name="textarea" name="bio" id="bio" placeholder="Biografía" rows="5" cols="50" maxlength="150"></textarea>
+        <br><br>
+        <input type="password" name="pass" id="pass" placeholder="Contraseña" maxlength="9" minlength="3">
+        <br><br>
+        <input type="password" name="repass" id="repass" placeholder="Repite la contraseña" maxlength="9" minlength="3">
+    </form>
+
+    <a onclick="register()" class="boton-principal" style="cursor:pointer;">Registrarme</a>
+</div>
+    
+</body>
+<script>
+    var modal = document.getElementById("Modal");
+    var btn = document.getElementById("btn-modal");
+    var span = document.getElementsByClassName("close")[0];
+    
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
+<script src="js/register.js"></script>
+</html>
+
