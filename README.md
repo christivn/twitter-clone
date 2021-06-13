@@ -38,7 +38,7 @@ Twitter clone hace uso de [Pusher](http://pusher.com) una herramienta que permit
 
 <table>
   <tr>
-    <td><h2>Documentación de la API</h2> <a href="https://github.com/christivn/twitter-clone/tree/main/documentacion-api">Las peticiones más importantes están documentadas en el siguiente enlace: Enlace a la documentación</a></td>
+    <td><h2>Documentación de la API</h2> Las peticiones más importantes están documentadas en el siguiente enlace: <a href="https://github.com/christivn/twitter-clone/tree/main/documentacion-api">Enlace a la documentación</a></td>
     <td width="50%"><img align="left" width="90%" src="https://i.imgur.com/1ZC2wyi.png"></td>     
   </tr> 
 </table>
