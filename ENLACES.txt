@@ -1,0 +1,14 @@
+
++===============================================================================================================+
+|														|
+| Enlace a la demo: http://christivn.es/demo/twitter-clone							|
+|														|
+| Enlace al repositorio (Github): https://github.com/christivn/twitter-clone					|
+|														|
+| Enlace a la documentación de la API: https://github.com/christivn/twitter-clone/tree/main/documentacion-api   |
+|														|
+| Enlace de la presentación: https://bit.ly/3pRQOzd								|
+|														|
++===============================================================================================================+
+
+
